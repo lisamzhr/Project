@@ -1,8 +1,116 @@
-<h1>Mental Health Tracker</h1>
+{% extends 'base.html' %}
 
-<h5>NPM: </h5>
-<p>{{ npm }}<p>
-<h5>Name: </h5>
-<p>{{ name }}<p>
-<h5>Class: </h5>
-<p>{{ class }}<p>
+{% block content %}
+<style>
+  .container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f9fafb;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+  }
+
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+  }
+
+  h5 {
+    margin-bottom: 5px;
+    color: #555;
+  }
+
+  p {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #222;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 12px 10px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th {
+    background-color: #DE5D83;
+    color: white;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f1f5f9;
+  }
+
+  .no-data {
+    color: #888;
+    font-style: italic;
+    margin-top: 20px;
+  }
+
+  .add-button {
+    margin-top: 30px;
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  .add-button button {
+    background-color: #DE5D83;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .add-button button:hover {
+    background-color: #FADADD;
+  }
+</style>
+
+<div class="container">
+  <h1>Mental Health Tracker</h1>
+
+  <h5>NPM:</h5>
+  <p>{{ npm }}</p>
+
+  <h5>Name:</h5>
+  <p>{{ name }}</p>
+
+  {% if not mood_entries %}
+    <p class="no-data">Belum ada data mood pada mental health tracker.</p>
+  {% else %}
+    <table>
+      <tr>
+        <th>Mood Name</th>
+        <th>Time</th>
+        <th>Feeling</th>
+        <th>Mood Intensity</th>
+      </tr>
+      {% for mood_entry in mood_entries %}
+        <tr>
+          <td>{{ mood_entry.mood }}</td>
+          <td>{{ mood_entry.time }}</td>
+          <td>{{ mood_entry.feelings }}</td>
+          <td>{{ mood_entry.mood_intensity }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% endif %}
+
+  <a href="{% url 'main:create_mood_entry' %}" class="add-button">
+    <button>Add New Mood Entry</button>
+  </a>
+</div>
+
+{% endblock content %}

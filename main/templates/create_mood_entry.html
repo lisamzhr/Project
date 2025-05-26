@@ -1,0 +1,62 @@
+{% extends 'base.html' %} 
+{% block content %}
+
+<style>
+  .form-container {
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f9fafb;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+  }
+
+  .form-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .form-container table {
+    width: 100%;
+  }
+
+  .form-container td {
+    padding: 10px 5px;
+    vertical-align: top;
+  }
+
+  .form-container input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #F88379;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .form-container input[type="submit"]:hover {
+    background-color: #FFBCD9;
+  }
+</style>
+
+<div class="form-container">
+  <h1>Add New Mood Entry</h1>
+  <form method="POST">
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+      <tr>
+        <td colspan="2">
+          <input type="submit" value="Add Mood Entry" />
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+
+{% endblock %}
